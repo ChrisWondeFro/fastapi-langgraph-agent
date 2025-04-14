@@ -297,8 +297,12 @@ async def update_session_name(
         raise HTTPException(status_code=422, detail=str(ve))
 
 
+#Issue with get_current_user dependency returning the entire User object, 
+#but get_user_sessions is trying to use it directly in a SQLAlchemy query where it needs just the ID.
+#Modified get_user_sessions function to extract the user ID from the User object:
+
 @router.get("/sessions", response_model=List[SessionResponse])
-async def get_user_sessions(user_id: int = Depends(get_current_user)):
+async def get_user_sessions(current_user: User = Depends(get_current_user)):
     """Get all session IDs for the authenticated user.
 
     Args:
@@ -307,7 +311,10 @@ async def get_user_sessions(user_id: int = Depends(get_current_user)):
     Returns:
         List[SessionResponse]: List of session IDs
     """
+
     try:
+        # Extract the user ID from the User object
+        user_id = current_user.id
         sessions = await db_service.get_user_sessions(user_id)
         return [
             SessionResponse(
@@ -320,3 +327,4 @@ async def get_user_sessions(user_id: int = Depends(get_current_user)):
     except ValueError as ve:
         logger.error("get_sessions_validation_failed", user_id=user_id, error=str(ve), exc_info=True)
         raise HTTPException(status_code=422, detail=str(ve))
+   

@@ -1,0 +1,8 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+      "utilities": "./app/core/langgraph/graph.py:_graph"
+    },
+    "env": ".env"
+  }
+  
