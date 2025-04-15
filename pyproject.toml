@@ -12,6 +12,7 @@ dependencies = [
     "fastapi>=0.115.12",
     "langchain>=0.3.22",
     "langchain-openai>=0.3.11",
+    "langchain-anthropic>=0.3.10",
     "langfuse>=2.60.2",
     "langgraph>=0.3.21",
     "langgraph-checkpoint-postgres>=2.0.19",
@@ -36,6 +37,10 @@ dependencies = [
     "langchain-community>=0.3.20",
     "tqdm>=4.67.1",
     "colorama>=0.4.6",
+    "tavily-python>=0.4.0",
+    "wikipedia>=1.4.0",
+    "xmltodict>=0.14.2",
+    "pytz>= 2025.2"
 ]
 
 [tool.setuptools.packages.find]

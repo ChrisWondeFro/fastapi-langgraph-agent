@@ -30,7 +30,7 @@ from app.core.config import (
     Environment,
     settings,
 )
-from app.core.langgraph.tools import tools
+from app.core.langgraph_modules.tools import tools
 from app.core.logging import logger
 from app.core.prompts import SYSTEM_PROMPT
 from app.schemas import (

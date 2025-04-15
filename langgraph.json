@@ -1,8 +1,9 @@
 {
-  "docker_compose_file": "/Users/christian/Desktop/fastapi-langgraph-agent/docker-compose.yml",
+  "docker_compose_file": "docker-compose.yml",
   "dockerfile_lines": [],
   "graphs": {
-    "app": "./app/core/langgraph/graph.py:_graph"
+    "app/chat_agent": "./app/core/langgraph_modules/graph.py:_graph",
+    "app/react_agent": "./app/core/langgraph_modules/react_agent/graph.py:graph"
   },
   "env": ".env.development",
   "python_version": "3.12",
