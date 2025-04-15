@@ -18,18 +18,6 @@ CREATE TABLE IF NOT EXISTS session (
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
--- Create message table
-CREATE TABLE IF NOT EXISTS message (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    session_id TEXT NOT NULL,
-    thread_id TEXT,
-    role TEXT NOT NULL,
-    content TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (session_id) REFERENCES session(id) ON DELETE CASCADE,
-    FOREIGN KEY (thread_id) REFERENCES thread(id) ON DELETE SET NULL
-);
-
 -- Create thread table
 CREATE TABLE IF NOT EXISTS thread (
     id TEXT PRIMARY KEY,
@@ -39,5 +27,3 @@ CREATE TABLE IF NOT EXISTS thread (
 -- Create indexes for frequently queried columns
 CREATE INDEX IF NOT EXISTS idx_user_email ON user(email);
 CREATE INDEX IF NOT EXISTS idx_session_user_id ON session(user_id);
-CREATE INDEX IF NOT EXISTS idx_message_session_id ON message(session_id);
-CREATE INDEX IF NOT EXISTS idx_message_thread_id ON message(thread_id); 

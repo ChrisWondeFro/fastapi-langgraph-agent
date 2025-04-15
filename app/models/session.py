@@ -13,7 +13,6 @@ from sqlmodel import (
 from app.models.base import BaseModel
 
 if TYPE_CHECKING:
-    from app.models.message import Message
     from app.models.user import User
 
 
@@ -32,9 +31,4 @@ class Session(BaseModel, table=True):
     id: str = Field(primary_key=True)
     user_id: int = Field(foreign_key="user.id")
     name: str = Field(default="")
-    messages: List["Message"] = Relationship(back_populates="session")
     user: "User" = Relationship(back_populates="sessions")
-
-
-# Avoid circular imports
-from app.models.message import Message  # noqa: E402

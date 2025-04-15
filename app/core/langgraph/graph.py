@@ -388,3 +388,8 @@ class LangGraphAgent:
         except Exception as e:
             logger.error("Failed to clear chat history", error=str(e))
             raise
+
+agent = LangGraphAgent()
+
+async def _graph():
+    return await agent.create_graph()

@@ -17,10 +17,16 @@ services:
     environment:
       - APP_ENV=${APP_ENV:-development}
       # Pass sensitive variables at runtime
-      - LLM_API_KEY=${LLM_API_KEY:-dummy-key-for-development}
       - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY:-}
       - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY:-}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-supersecretkeythatshouldbechangedforproduction}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-}
+      - DEFAULT_LLM_TEMPERATURE=${DEFAULT_LLM_TEMPERATURE:-}
+      - POSTGRES_URL=${POSTGRES_URL:-}
+      - POSTGRES_POOL_SIZE=${POSTGRES_POOL_SIZE:-}
+      - POSTGRES_MAX_OVERFLOW=${POSTGRES_MAX_OVERFLOW:-}
+
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s

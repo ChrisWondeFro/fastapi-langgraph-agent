@@ -20,11 +20,8 @@ from app.core.config import (
     settings,
 )
 from app.core.logging import logger
-from app.models.message import Message
 from app.models.session import Session as ChatSession
 from app.models.user import User
-from app.schemas.chat import Message as PydanticMessage
-
 
 class DatabaseService:
     """Service class for database operations.
@@ -200,59 +197,6 @@ class DatabaseService:
             session.refresh(chat_session)
             logger.info("session_name_updated", session_id=session_id, name=name)
             return chat_session
-
-    async def delete_session(self, session_id: str) -> bool:
-        """Delete a session.
-
-        Args:
-            session_id: The ID of the session to delete
-
-        Returns:
-            bool: True if deletion was successful
-
-        Raises:
-            HTTPException: If there's an error deleting the session
-        """
-        try:
-            with Session(self.engine) as session:
-                session.delete(ChatSession, session_id)
-                session.commit()
-                logger.info("session_deleted", session_id=session_id)
-                return True
-        except Exception as e:
-            logger.error("error_deleting_session", session_id=session_id, error=e)
-            raise HTTPException(status_code=500, detail="Error deleting session")
-
-    async def get_messages_by_session_id(self, session_id: str) -> List[Message]:
-        """Get all messages by session ID.
-
-        Args:
-            session_id: The ID of the session
-
-        Returns:
-            List[Message]: List of messages in the session
-        """
-        with Session(self.engine) as session:
-            statement = select(Message).where(Message.session_id == session_id).order_by(Message.created_at)
-            messages = session.exec(statement).all()
-            return messages
-
-    async def save_messages(self, messages: List[PydanticMessage], session_id: str) -> List[Message]:
-        """Save a message to the database.
-
-        Args:
-            messages: The messages to save
-            session_id: The ID of the session
-        """
-        with Session(self.engine) as session:
-            messages = [
-                Message(session_id=session_id, role=message.role, content=message.content) for message in messages
-            ]
-            session.add_all(messages)
-            session.commit()
-            session.refresh_all(messages)
-            logger.info("messages_saved", session_id=session_id, role=messages[0].role)
-            return messages
 
     def get_session_maker(self):
         """Get a session maker for creating database sessions.

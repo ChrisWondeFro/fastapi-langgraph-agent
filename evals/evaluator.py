@@ -1,3 +1,5 @@
+"Evaluator for evals."""
+
 import asyncio
 import os
 import sys

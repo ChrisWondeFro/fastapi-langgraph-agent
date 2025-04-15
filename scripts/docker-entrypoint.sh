@@ -87,5 +87,8 @@ echo "Debug Mode: ${DEBUG:-false}"
 # Run database migrations if necessary
 # e.g., alembic upgrade head
 
+# Activate virtualenv
+source /app/.venv/bin/activate
+
 # Execute the CMD
 exec "$@"

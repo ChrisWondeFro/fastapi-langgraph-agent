@@ -1,8 +1,12 @@
 {
-    "dependencies": ["."],
-    "graphs": {
-      "utilities": "./app/core/langgraph/graph.py:_graph"
-    },
-    "env": ".env"
-  }
-  
+  "docker_compose_file": "/Users/christian/Desktop/fastapi-langgraph-agent/docker-compose.yml",
+  "dockerfile_lines": [],
+  "graphs": {
+    "app": "./app/core/langgraph/graph.py:_graph"
+  },
+  "env": ".env.development",
+  "python_version": "3.12",
+  "dependencies": [
+    "."
+  ]
+}
